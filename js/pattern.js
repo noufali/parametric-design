@@ -38,27 +38,22 @@ function draw () {
   stroke(255);
   noFill();
   beginShape();
-  let t = sin( frameCount/1000. ) * 200;
-
+  let t;
   for(let theta = 0; theta < size.value(); theta += 0.01) {
     if (isAnimate == false) {
-      xt = sin(theta) * (theta) + 750;
-      yt = cos(theta) * (theta) + 300;
+      t = 0;
     } else {
-      xt = sin(theta + t)*(theta + t) + 750;
-      yt = cos(theta + t)*(theta) + 300;
+      t = sin( frameCount/1000. ) * 200;
     }
+    
+    xt = sin(theta + t) * (theta) + 750;
+    yt = cos(theta + t) * (theta) + 300;
 
     let nthet = xt/division.value() + yt/division.value();
     let othet = xt/division.value() - yt/division.value();
 
-    if (isAnimate == false) {
-      yp = yt + sin(nthet)*15 + sin(othet) * 15;
-      xp = xt + cos(nthet)*15 + cos(othet) * 15;
-    } else {
-      yp = yt + sin(nthet + t)*15 + sin(othet) * 15;
-      xp = xt + cos(nthet)*15 + cos(othet) * 15;
-    }
+    yp = yt + sin(nthet + t)*15 + sin(othet) * 15;
+    xp = xt + cos(nthet)*15 + cos(othet) * 15;
     curveVertex(xp,yp);
   }
   endShape();
