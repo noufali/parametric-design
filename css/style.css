@@ -1,0 +1,71 @@
+html {
+	background: #ffffff;
+}
+
+body {
+	font-family: 'Nunito', monospace;
+	color: var(--color-text);
+	background-color: var(--color-background);
+	min-height: 100vh;
+  overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+}
+
+#myContainer {
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+	text-decoration: none;
+	color: var(--color-link);
+	outline: none;
+}
+
+a:hover,
+a:focus {
+	color: var(--color-link-hover);
+}
+
+/* Color schemes */
+.demo-magneto {
+	--color-text: #41353d;
+	--color-background: #FECB09;
+	--color-link: #000;
+	--color-link-hover: #41353d;
+}
+
+.demos {
+	/* grid-area: demos; */
+	text-align: right;
+	display: block;
+	position: relative;
+	margin-right: 30px;
+}
+
+.demo {
+	margin: 0 0.15em;
+}
+
+a.demo--current {
+	text-decoration: underline;
+	/* pointer-events: none; */
+}
+
+
+.demo span {
+	text-transform: lowercase;
+	font-weight: bold;
+	pointer-events: none;
+	white-space: nowrap;
+}
+
+.bt {
+	width: 100px;
+	height: 20px;
+	
+}
