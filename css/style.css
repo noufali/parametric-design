@@ -12,6 +12,11 @@ body {
 	margin: 0px;
 }
 
+#paramters {
+	width: 100%;
+  height: 500px;
+}
+
 #myContainer {
   padding-bottom: 20px;
   display: flex;
@@ -40,11 +45,13 @@ a:focus {
 }
 
 .demos {
+	width: 15%;
 	/* grid-area: demos; */
-	text-align: right;
-	display: block;
-	position: relative;
-	margin-right: 30px;
+	/* text-align: right; */
+	/* display: block; */
+	position: absolute;
+	right: 30px;
+	z-index: 2;
 }
 
 .demo {
@@ -52,7 +59,9 @@ a:focus {
 }
 
 a.demo--current {
-	text-decoration: underline;
+	/* text-decoration: underline; */
+	color: black;
+	background-color: #D6D3CC;
 	/* pointer-events: none; */
 }
 
@@ -64,8 +73,29 @@ a.demo--current {
 	white-space: nowrap;
 }
 
+#gui {
+	position: relative;
+	float: left;
+	background-color: white;
+	width:1450px;
+  height:200px;
+}
+
 .bt {
 	width: 100px;
 	height: 20px;
-	
+}
+
+#title {
+	font-family: 'Nunito', monospace !important;
+	font-weight: bold;
+}
+
+input:focus {
+	outline: none;
+}
+
+.colours {
+	width: 15px;
+	height: 15px;
 }

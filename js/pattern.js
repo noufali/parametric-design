@@ -1,16 +1,15 @@
 var canvas;
 var x = 10;
-var y = 10;
-var colours = ["#420F38", "#D6D3CC", "#E89FB2", "#2359A2"];
-var div, size, sizeText, division, divisionText, animateButton, saveButton, gifButton;
+var strokeCol = 255;
+var col = "#2359A2";
 var xt, yt, xp, yp;
+var title, style, geometry;
+var div, size, division, strokeSlider, widthSlider, heightSlider;
+var blue, purple, grey, pink;
+var sizeText, divisionText, strokeText, widthText, heighText, colText;
+var animateButton, saveButton, gifButton;
 var isAnimate = false;
-var capturer = new CCapture( {
-  format: 'gif',
-  workersPath: 'js/',
-	framerate: 60,
-	verbose: true
-} );
+
 
 
 function setup () {
@@ -21,21 +20,12 @@ function setup () {
 }
 
 function draw () {
-  background("#2359A2");
+  resizeCanvas(widthSlider.value(), heightSlider.value());
+  background(col);
   y = 10;
-  // colour palette
-  // for (let i=0; i<4; i++) {
-  //   push();
-  //   fill(colours[i]);
-  //   noStroke();
-  //   rect(x, y, 15, 15);
-  //   pop();
-  //   y += 20;
-  // }
-  // curvy thingies from Matthias Wandel's Shingles
   push();
-  strokeWeight(2);
-  stroke(255);
+  strokeWeight(strokeSlider.value());
+  stroke(strokeCol);
   noFill();
   beginShape();
   let t;
@@ -45,9 +35,9 @@ function draw () {
     } else {
       t = sin( frameCount/1000. ) * 200;
     }
-    
-    xt = sin(theta + t) * (theta) + 750;
-    yt = cos(theta + t) * (theta) + 300;
+
+    xt = sin(theta + t) * (theta) + (width/2);
+    yt = cos(theta + t) * (theta) + (height/2);
 
     let nthet = xt/division.value() + yt/division.value();
     let othet = xt/division.value() - yt/division.value();
@@ -64,35 +54,158 @@ function gui() {
   // div
   div = createDiv();
   div.position(0,600);
-  div.style('background-color', 'white');
-  div.style('width', '1450px');
-  div.style('height', '200px');
-  //div.style('z-index', '-1');
   div.id('gui');
 
+  // CHANGE CANVAS
+  title = createP("canvas parameters");
+  title.position(20, 0);
+  title.id("title");
+  title.parent('gui');
+
   // parameter 1
+  widthText = createP("width");
+  widthText.position(20,25);
+  widthText.parent('gui');
+
+  widthSlider = createInput('1450');
+  widthSlider.position(80,44);
+  widthSlider.style('width', '70px');
+  widthSlider.parent('gui');
+
+  // parameter 2
+  heighText = createP("height");
+  heighText.position(20,50);
+  heighText.parent('gui');
+
+  heightSlider = createInput('600');
+  heightSlider.position(80,67);
+  heightSlider.style('width', '70px');
+  heightSlider.parent('gui');
+
+  // colours
+  colText = createP("colour");
+  colText.position(20,80);
+  colText.parent('gui');
+
+  purple = createDiv();
+  purple.mousePressed(function() {
+    col = '#420F38';
+  });
+  purple.position(80,100);
+  purple.class('colours');
+  purple.style('background-color', '#420F38');
+  purple.parent('gui');
+
+  grey = createDiv();
+  grey.mousePressed(function() {
+    col = '#D6D3CC';
+  });
+  grey.position(100,100);
+  grey.class('colours');
+  grey.style('background-color', '#D6D3CC');
+  grey.parent('gui');
+
+  pink = createDiv();
+  pink.mousePressed(function() {
+    col = '#E89FB2';
+  });
+  pink.position(120,100);
+  pink.class('colours');
+  pink.style('background-color', '#E89FB2');
+  pink.parent('gui');
+
+  blue = createDiv();
+  blue.mousePressed(function() {
+    col = '#2359A2';
+  });
+  blue.position(140,100);
+  blue.class('colours');
+  blue.style('background-color', '#2359A2');
+  blue.parent('gui');
+
+  // CHANGE STYLE
+  style = createP("style parameters");
+  style.position(190, 0);
+  style.id("title");
+  style.parent('gui');
+
+  // parameter 3
+  strokeText = createP("stroke");
+  strokeText.position(190, 25);
+  strokeText.parent('gui');
+
+  strokeSlider = createSlider(0.25, 2, 1, 0.25);
+  strokeSlider.position(240,43);
+  strokeSlider.parent('gui');
+
+  // colours
+  colText = createP("colour");
+  colText.position(190,50);
+  colText.parent('gui');
+
+  purple = createDiv();
+  purple.mousePressed(function() {
+    strokeCol = '#420F38';
+  });
+  purple.position(250,70);
+  purple.class('colours');
+  purple.style('background-color', '#420F38');
+  purple.parent('gui');
+
+  grey = createDiv();
+  grey.mousePressed(function() {
+    strokeCol = '#D6D3CC';
+  });
+  grey.position(270,70);
+  grey.class('colours');
+  grey.style('background-color', '#D6D3CC');
+  grey.parent('gui');
+
+  pink = createDiv();
+  pink.mousePressed(function() {
+    strokeCol = '#E89FB2';
+  });
+  pink.position(290,70);
+  pink.class('colours');
+  pink.style('background-color', '#E89FB2');
+  pink.parent('gui');
+
+  blue = createDiv();
+  blue.mousePressed(function() {
+    strokeCol = '#2359A2';
+  });
+  blue.position(310,70);
+  blue.class('colours');
+  blue.style('background-color', '#2359A2');
+  blue.parent('gui');
+
+  // CHANGE GEOMETRY
+  geometry = createP("geometry parameters");
+  geometry.position(400, 0);
+  geometry.id("title");
+  geometry.parent('gui');
+
+  // parameter 4
   sizeText = createP("theta");
-  sizeText.position(20, 5)
-  sizeText.style('font-family', " 'Nunito', monospace ");
+  sizeText.position(400, 25);
   sizeText.parent('gui');
 
   size = createSlider(100, 800, 300, 1);
-  size.position(150,20);
+  size.position(446,43);
   size.parent('gui');
 
-  // parameter 2
+  // parameter 5
   divisionText = createP("division");
-  divisionText.position(20, 40);
-  divisionText.style('font-family', 'Nunito');
+  divisionText.position(400, 50);
   divisionText.parent('gui');
 
   division = createSlider(30, 80, 30, 1);
-  division.position(150,55);
+  division.position(460,69);
   division.parent('gui');
 
   // animate
   animateButton = createButton('animate');
-  animateButton.position(20, 100);
+  animateButton.position(20, 130);
   animateButton.id('animate');
   animateButton.class('bt');
   animateButton.parent('gui');
@@ -100,7 +213,7 @@ function gui() {
 
   // save canvas
   saveButton = createButton('save png');
-  saveButton.position(150, 100);
+  saveButton.position(140, 130);
   saveButton.id('save');
   saveButton.class('bt');
   saveButton.parent('gui');
@@ -108,7 +221,7 @@ function gui() {
 
   // save gif
   gifButton = createButton('save gif');
-  gifButton.position(280, 100);
+  gifButton.position(260, 130);
   gifButton.id('giffy');
   gifButton.class('bt');
   gifButton.parent('gui');
